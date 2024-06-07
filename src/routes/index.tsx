@@ -1,25 +1,29 @@
 import { component$ } from "@builder.io/qwik";
-import type { DocumentHead } from "@builder.io/qwik-city";
+import dayjs from "dayjs";
+import Todo from "~/components/Todo";
 
 export default component$(() => {
+  const today = dayjs();
+
   return (
     <>
-      <h1>Hi 👋</h1>
-      <div>
-        Can't wait to see what you build with qwik!
-        <br />
-        Happy coding.
-      </div>
+      <section class="grid h-[50dvh] grid-cols-2">
+        <section class="flex flex-col items-center justify-center text-center lg:text-left">
+          <h1 class="text-5xl font-bold">Dashboard</h1>
+          <h3 class="py-6">You completed 3 tasks today</h3>
+        </section>
+        <section class="flex flex-col items-center justify-center">
+          <h1 class="text-3xl font-bold">
+            Due {today.toDate().toLocaleString([], { dateStyle: "long" })}:
+          </h1>
+          <Todo
+            completed={false}
+            desc="Complete this app"
+            id={1}
+            title="Build this SaaS"
+          />
+        </section>
+      </section>
     </>
   );
 });
-
-export const head: DocumentHead = {
-  title: "Welcome to Qwik",
-  meta: [
-    {
-      name: "description",
-      content: "Qwik site description",
-    },
-  ],
-};
